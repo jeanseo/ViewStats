@@ -2,82 +2,6 @@
   <div class="content">
     <div class="md-layout">
       <div
-        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
-      >
-        <chart-card
-          :chart-data="dailySalesChart.data"
-          :chart-options="dailySalesChart.options"
-          :chart-type="'Line'"
-          data-background-color="blue"
-        >
-          <template slot="content">
-            <h4 class="title">Daily Sales</h4>
-            <p class="category">
-              <span class="text-success"
-                ><i class="fas fa-long-arrow-alt-up"></i> 55%
-              </span>
-              increase in today sales.
-            </p>
-          </template>
-
-          <template slot="footer">
-            <div class="stats">
-              <md-icon>access_time</md-icon>
-              updated 4 minutes ago
-            </div>
-          </template>
-        </chart-card>
-      </div>
-      <div
-        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
-      >
-        <chart-card
-          :chart-data="emailsSubscriptionChart.data"
-          :chart-options="emailsSubscriptionChart.options"
-          :chart-responsive-options="emailsSubscriptionChart.responsiveOptions"
-          :chart-type="'Bar'"
-          data-background-color="red"
-        >
-          <template slot="content">
-            <h4 class="title">Email Subscription</h4>
-            <p class="category">
-              Last Campaign Performance
-            </p>
-          </template>
-
-          <template slot="footer">
-            <div class="stats">
-              <md-icon>access_time</md-icon>
-              updated 10 days ago
-            </div>
-          </template>
-        </chart-card>
-      </div>
-      <div
-        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
-      >
-        <chart-card
-          :chart-data="dataCompletedTasksChart.data"
-          :chart-options="dataCompletedTasksChart.options"
-          :chart-type="'Line'"
-          data-background-color="green"
-        >
-          <template slot="content">
-            <h4 class="title">Completed Tasks</h4>
-            <p class="category">
-              Last Campaign Performance
-            </p>
-          </template>
-
-          <template slot="footer">
-            <div class="stats">
-              <md-icon>access_time</md-icon>
-              campaign sent 26 minutes ago
-            </div>
-          </template>
-        </chart-card>
-      </div>
-      <div
         class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-25"
       >
         <stats-card data-background-color="green">
@@ -86,8 +10,8 @@
           </template>
 
           <template slot="content">
-            <p class="category">Revenue</p>
-            <h3 class="title">$34,245</h3>
+            <p class="category">Commerçants recensés</p>
+            <h3 class="title">{{merchantCount.total}}</h3>
           </template>
 
           <template slot="footer">
@@ -107,10 +31,9 @@
           </template>
 
           <template slot="content">
-            <p class="category">Used Space</p>
+            <p class="category">Revenu minimum</p>
             <h3 class="title">
-              49/50
-              <small>GB</small>
+              22€
             </h3>
           </template>
 
@@ -131,8 +54,8 @@
           </template>
 
           <template slot="content">
-            <p class="category">Fixed Issues</p>
-            <h3 class="title">75</h3>
+            <p class="category">Revenu minimum</p>
+            <h3 class="title">999€</h3>
           </template>
 
           <template slot="footer">
@@ -152,8 +75,8 @@
           </template>
 
           <template slot="content">
-            <p class="category">Folowers</p>
-            <h3 class="title">+245</h3>
+            <p class="category">Revenu moyen</p>
+            <h3 class="title">100€</h3>
           </template>
 
           <template slot="footer">
@@ -165,12 +88,88 @@
         </stats-card>
       </div>
       <div
+              class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
+      >
+        <chart-card
+                :chart-data="dailySalesChart.data"
+                :chart-options="dailySalesChart.options"
+                :chart-type="'Line'"
+                data-background-color="blue"
+        >
+          <template slot="content">
+            <h4 class="title">Daily Sales</h4>
+            <p class="category">
+              <span class="text-success"
+              ><i class="fas fa-long-arrow-alt-up"></i> 55%
+              </span>
+              increase in today sales.
+            </p>
+          </template>
+
+          <template slot="footer">
+            <div class="stats">
+              <md-icon>access_time</md-icon>
+              updated 4 minutes ago
+            </div>
+          </template>
+        </chart-card>
+      </div>
+      <div
+              class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
+      >
+        <chart-card
+                :chart-data="emailsSubscriptionChart.data"
+                :chart-options="emailsSubscriptionChart.options"
+                :chart-responsive-options="emailsSubscriptionChart.responsiveOptions"
+                :chart-type="'Bar'"
+                data-background-color="red"
+        >
+          <template slot="content">
+            <h4 class="title">Email Subscription</h4>
+            <p class="category">
+              Last Campaign Performance
+            </p>
+          </template>
+
+          <template slot="footer">
+            <div class="stats">
+              <md-icon>access_time</md-icon>
+              updated 10 days ago
+            </div>
+          </template>
+        </chart-card>
+      </div>
+      <div
+              class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
+      >
+        <chart-card
+                :chart-data="dataCompletedTasksChart.data"
+                :chart-options="dataCompletedTasksChart.options"
+                :chart-type="'Line'"
+                data-background-color="green"
+        >
+          <template slot="content">
+            <h4 class="title">Completed Tasks</h4>
+            <p class="category">
+              Last Campaign Performance
+            </p>
+          </template>
+
+          <template slot="footer">
+            <div class="stats">
+              <md-icon>access_time</md-icon>
+              campaign sent 26 minutes ago
+            </div>
+          </template>
+        </chart-card>
+      </div>
+      <div
         class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-50"
       >
         <md-card>
           <md-card-header data-background-color="orange">
-            <h4 class="title">Employees Stats</h4>
-            <p class="category">New employees on 15th September, 2016</p>
+            <h4 class="title">Commerçants récents</h4>
+            <p class="category">Derniers commerçants ajoutés</p>
           </md-card-header>
           <md-card-content>
             <ordered-table table-header-color="orange"></ordered-table>
@@ -178,26 +177,9 @@
         </md-card>
       </div>
       <div
-        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-50"
+              class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-50"
       >
-        <nav-tabs-card>
-          <template slot="content">
-            <span class="md-nav-tabs-title">Tasks:</span>
-            <md-tabs class="md-success" md-alignment="left">
-              <md-tab id="tab-home" md-label="Bugs" md-icon="bug_report">
-                <nav-tabs-table></nav-tabs-table>
-              </md-tab>
-
-              <md-tab id="tab-pages" md-label="Website" md-icon="code">
-                <nav-tabs-table></nav-tabs-table>
-              </md-tab>
-
-              <md-tab id="tab-posts" md-label="server" md-icon="cloud">
-                <nav-tabs-table></nav-tabs-table>
-              </md-tab>
-            </md-tabs>
-          </template>
-        </nav-tabs-card>
+        <merchant-card> </merchant-card>
       </div>
     </div>
   </div>
@@ -211,9 +193,11 @@ import {
   NavTabsTable,
   OrderedTable
 } from "@/components";
+import MerchantCard from "./DashBoard/MerchantCard";
 
 export default {
   components: {
+    MerchantCard,
     StatsCard,
     ChartCard,
     NavTabsCard,
@@ -222,6 +206,14 @@ export default {
   },
   data() {
     return {
+      merchantCount:{
+        total : '',
+      },
+      merchantIncomingStats:{
+        min : '',
+        max : '',
+        avg : ''
+      },
       dailySalesChart: {
         data: {
           labels: ["M", "T", "W", "T", "F", "S", "S"],
@@ -305,8 +297,20 @@ export default {
             }
           ]
         ]
-      }
+      },
     };
-  }
+  },
+  methods: {
+    getMerchantCount() {
+      this.merchantCount.total = 132;
+      //TODO Requête API GET http://localhost:3000/api/merchants/count?access_token=TRRJgMx6Svy9AhYx5DcPJx0nvdKXr7DloSn53AEEGgMHlMYN7wH1JMIIKGfoKxqA
+      //Penser à filtrer les deleted
+    }
+
+  },
+  created() {
+    this.getMerchantCount();
+  },
+
 };
 </script>
