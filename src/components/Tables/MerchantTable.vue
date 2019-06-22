@@ -15,7 +15,9 @@
                 </md-table-cell>
             </md-table-row>
         </md-table>
-
+        <md-button class="md-fab md-primary" @click="onCreate">
+            <md-icon>person_add</md-icon>
+        </md-button>
         <md-dialog :md-active.sync="showDialog">
                 <md-dialog-title>Preferences</md-dialog-title>
                 <md-content>
@@ -71,8 +73,8 @@
                     </form>
                 </md-content>
                 <md-dialog-actions>
-                    <md-button class="md-primary" type="reset" @click="onReset">Close</md-button>
-                    <md-button class="md-alert" type="submit" @click="validateMerchant">Save</md-button>
+                    <md-button class="md-default" type="reset" @click="onReset">Close</md-button>
+                    <md-button class="md-success" type="submit" @click="validateMerchant">Save</md-button>
                 </md-dialog-actions>
             </md-dialog>
     </div>
@@ -117,6 +119,7 @@
                     phone: '',
                     incoming: '',
                     holidays: '',
+                    creationDate: '',
                 },
                 message: '',
                 showMessage : false,
@@ -133,6 +136,16 @@
         methods: {
             initForm() {
                 this.editForm.id=null;
+                this.editForm.email=null;
+                this.editForm.phone=null;
+                this.editForm.incoming=null;
+                this.editForm.holidays=null;
+                this.editForm.lastName=null;
+                this.editForm.firstName=null;
+                this.editForm.marketId=null;
+                this.editForm.creationDate;
+
+
             },
             getMerchants() {
                 const path = 'http://localhost:3000/api/merchants?filter=%7B%22where%22%3A%7B%22deleted%22%3A%22false%22%7D%7D&access_token=TRRJgMx6Svy9AhYx5DcPJx0nvdKXr7DloSn53AEEGgMHlMYN7wH1JMIIKGfoKxqA';
@@ -149,23 +162,26 @@
                 //Validation du formulaire
                 evt.preventDefault();
                 this.onSubmitUpdate();
+
+            },
+            onCreate(){
+                this.initForm();
+                this.showDialog = true;
             },
             onSelect(item) {
-                this.editForm = JSON.parse(JSON.stringify(item));
-                this.editForm.firstName = item.firstName;
-                console.log("Apparition 1");
-                this.showDialog = true;
+                if (item){
+                    this.editForm = JSON.parse(JSON.stringify(item));
+                    this.showDialog = true;
+                }
             },
             onReset(evt) {
                 evt.preventDefault();
-                console.log("Disparition 1");
                 this.showDialog = false;
                 this.initForm();
             },
             onSubmitUpdate() {
-                console.log("Disparition 2");
                 this.showDialog = false;
-                const payload = {
+                let payload = {
                     firstName: this.editForm.firstName,
                     lastName: this.editForm.lastName,
                     email: this.editForm.email,
@@ -173,18 +189,41 @@
                     incoming: this.editForm.incoming,
                     holidays: this.editForm.holidays,
                     lastUpdated: Date.now(),
-                    creationDate: this.editForm.creationDate,
                     marketId: this.editForm.marketId,
                     deleted: false,
                 };
-                this.updateMerchant(payload, this.editForm.id);
+                //On est en mode edit
+                if (this.editForm.id!==null){
+                    payload.creationDate = this.editForm.creationDate;
+                    this.updateMerchant(payload, this.editForm.id);
+                }
+                //On est en mode create
+                else{
+                    payload.creationDate = Date.now();
+                    this.createMerchant(payload);
+                }
                 this.initForm();
             },
             updateMerchant(payload, merchantID) {
                 const path = `http://localhost:3000/api/merchants/${merchantID}?access_token=TRRJgMx6Svy9AhYx5DcPJx0nvdKXr7DloSn53AEEGgMHlMYN7wH1JMIIKGfoKxqA`;
                 axios.put(path, payload)
                     .then(() => {
-                        this.message = 'Marchand mis à jour';
+                        this.message = 'Fiche marchand mise à jour';
+                        console.log(this.message);
+                        this.getMerchants();
+                        //this.showMessage = true;
+                    })
+                    .catch((error) => {
+                        // eslint-disable-next-line
+                        console.error(error);
+                        this.getMerchants();
+                    });
+            },
+            createMerchant(payload) {
+                const path = `http://localhost:3000/api/merchants?access_token=TRRJgMx6Svy9AhYx5DcPJx0nvdKXr7DloSn53AEEGgMHlMYN7wH1JMIIKGfoKxqA`;
+                axios.post(path, payload)
+                    .then(() => {
+                        this.message = 'Fiche marchand créée';
                         console.log(this.message);
                         this.getMerchants();
                         //this.showMessage = true;
