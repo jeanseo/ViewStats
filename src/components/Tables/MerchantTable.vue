@@ -6,7 +6,7 @@
                 <md-table-cell md-label="Nom" md-sort-by="name">{{ item.firstName }} {{ item.lastName }}</md-table-cell>
                 <md-table-cell md-label="Email" md-sort-by="email">{{ item.email }}</md-table-cell>
                 <md-table-cell md-label="Téléphone" md-sort-by="phone">{{ item.phone }}</md-table-cell>
-                <md-table-cell md-label="Marché" md-sort-by="market">{{ item.marketId }}</md-table-cell>
+                <md-table-cell md-label="Marché" md-sort-by="market">{{ getMarketbyId(item.marketId) }}</md-table-cell>
                 <md-table-cell md-label="Revenus" md-sort-by="incoming" md-numeric>{{ item.incoming }}</md-table-cell>
                 <md-table-cell md-label="Congés" md-sort-by="holidays" md-numeric>{{ item.holidays }}</md-table-cell>
                 <md-table-cell md-label="Modification" md-sort-by="updated">{{ item.lastUpdated }}</md-table-cell>
@@ -19,7 +19,7 @@
             <md-icon>person_add</md-icon>
         </md-button>
         <md-dialog :md-active.sync="showDialog">
-                <md-dialog-title>Preferences</md-dialog-title>
+                <md-dialog-title>Commerçant</md-dialog-title>
                 <md-content>
                     <form novalidate class="md-layout">
                             <div class="md-layout-item md-size-50">
@@ -52,6 +52,18 @@
                                     <md-input name="phone-number" id="phone-number" v-model="editForm.phone" />
                                     <span class="md-error" >The phone number is required</span>
                                     <span class="md-error" >Invalid phone number</span>
+                                </md-field>
+                            </div>
+                            <div class="md-layout-item md-size-50">
+                                <md-field >
+                                    <label for="marketId">Marché</label>
+                                    <md-select  name="marketId" id="marketId" v-model="editForm.marketId" md-dense>
+                                        <md-option v-for="market in markets" v-bind:value="market.id">
+                                            {{ market.name }}
+                                        </md-option>
+                                    </md-select >
+                                    <span class="md-error" >The first name is required</span>
+                                    <span class="md-error">Invalid first name</span>
                                 </md-field>
                             </div>
                             <div class="md-layout-item md-size-50">
@@ -110,6 +122,7 @@
             return {
                 selected: {},
                 merchants: [],
+                markets: [],
                 addMerchantForm: {
                     firstName: '',
                     lastName: '',
@@ -127,6 +140,7 @@
                     incoming: '',
                     holidays: '',
                     creationDate: '',
+                    marketId: '',
                 },
                 message: '',
                 showMessage : false,
@@ -155,6 +169,18 @@
                 this.editForm.creationDate;
 
 
+            },
+            getMarkets(){
+                const path = 'http://localhost:3000/api/markets?access_token=TRRJgMx6Svy9AhYx5DcPJx0nvdKXr7DloSn53AEEGgMHlMYN7wH1JMIIKGfoKxqA';
+                axios.get(path)
+                    .then((res) => {
+                        this.markets = res.data;
+                        console.log(res.data);
+                    })
+                    .catch((error) => {
+                        // eslint-disable-next-line
+                        console.error(error);
+                    });
             },
             getMerchants() {
                 const path = 'http://localhost:3000/api/merchants?filter=%7B%22where%22%3A%7B%22deleted%22%3A%22false%22%7D%7D&access_token=TRRJgMx6Svy9AhYx5DcPJx0nvdKXr7DloSn53AEEGgMHlMYN7wH1JMIIKGfoKxqA';
@@ -249,11 +275,20 @@
 
             },
             onDeleteConfirm(){
-
                 let payload = this.toDelete;
                 payload.deleted = true;
                 this.updateMerchant(payload,payload.id);
                 this.toDelete= null;
+            },
+            getMarketbyId(marketId){
+                    const targetObject = this.markets.find(item => item.id === marketId);
+                if (targetObject!==undefined){
+
+                    return `${targetObject.name} (${targetObject.city})`;
+                }
+                else{
+                    return ""
+                }
             },
             getValidationClass (fieldName) {
                 const field = this.$v.form[fieldName];
@@ -268,6 +303,7 @@
         },
         created() {
             this.getMerchants();
+            this.getMarkets();
         },
         components: {
         },
