@@ -11,7 +11,7 @@
                 <md-table-cell md-label="Congés" md-sort-by="holidays" md-numeric>{{ item.holidays }}</md-table-cell>
                 <md-table-cell md-label="Modification" md-sort-by="updated">{{ item.lastUpdated }}</md-table-cell>
                 <md-table-cell md-label="">
-
+                    <md-button class="md-default md-sm md-simple" @click="onDelete(item)"><md-icon >delete</md-icon></md-button>
                 </md-table-cell>
             </md-table-row>
         </md-table>
@@ -77,6 +77,13 @@
                     <md-button class="md-success" type="submit" @click="validateMerchant">Save</md-button>
                 </md-dialog-actions>
             </md-dialog>
+        <md-dialog-confirm
+                :md-active.sync="showDeleteConfirm"
+                md-content="Voulez-vous supprimer cette fiche?"
+                md-confirm-text="Supprimer"
+                md-cancel-text="Annuler"
+                @md-cancel="toDelete=null"
+                @md-confirm="onDeleteConfirm" />
     </div>
 </template>
 
@@ -124,6 +131,8 @@
                 message: '',
                 showMessage : false,
                 showDialog: false,
+                showDeleteConfirm:false,
+                toDelete: null,
             };
         },
         validations: {
@@ -169,7 +178,7 @@
                 this.showDialog = true;
             },
             onSelect(item) {
-                if (item){
+                if (item && !this.showDeleteConfirm){
                     this.editForm = JSON.parse(JSON.stringify(item));
                     this.showDialog = true;
                 }
@@ -233,6 +242,18 @@
                         console.error(error);
                         this.getMerchants();
                     });
+            },
+            onDelete(item){
+                this.toDelete = item;
+                this.showDeleteConfirm = true;
+
+            },
+            onDeleteConfirm(){
+
+                let payload = this.toDelete;
+                payload.deleted = true;
+                this.updateMerchant(payload,payload.id);
+                this.toDelete= null;
             },
             getValidationClass (fieldName) {
                 const field = this.$v.form[fieldName];
