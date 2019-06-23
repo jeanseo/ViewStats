@@ -6,11 +6,20 @@
       >
         <md-card>
           <md-card-header data-background-color="green">
-            <h4 class="title">Simple Table</h4>
-            <p class="category">Here is a subtitle for this table</p>
+            <h4 class="title">Commerçants</h4>
+            <p class="category">Gestion de la liste des commerçants</p>
           </md-card-header>
           <md-card-content>
             <merchant-table table-header-color="green"></merchant-table>
+          </md-card-content>
+        </md-card>
+        <md-card>
+          <md-card-header data-background-color="green">
+            <h4 class="title">Marchés</h4>
+            <p class="category">Gestion de la liste des marchés</p>
+          </md-card-header>
+          <md-card-content>
+            <market-table table-header-color="red"></market-table>
           </md-card-content>
         </md-card>
       </div>
@@ -20,10 +29,13 @@
 
 <script>
 import { MerchantTable } from "@/components";
+import { MarketTable } from "@/components";
+
 
 export default {
   components: {
-    MerchantTable
+    MerchantTable,
+    MarketTable,
   }
 };
 </script>
