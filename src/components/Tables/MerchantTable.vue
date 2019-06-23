@@ -22,6 +22,11 @@
                 <md-dialog-title>Commerçant</md-dialog-title>
                 <md-content>
                     <form novalidate class="md-layout">
+                            <div class="md-layout-item md-size-100">
+                                <md-avatar class="md-large">
+                                    <img v-bind:src="editFormPortraitFile" alt="Portrait">
+                                </md-avatar>
+                            </div>
                             <div class="md-layout-item md-size-50">
                                 <md-field >
                                     <label for="first-name">Prénom</label>
@@ -82,6 +87,13 @@
                                     <span class="md-error" >Invalid phone number</span>
                                 </md-field>
                             </div>
+                        <div class="md-layout-item md-size-50">
+                            <md-field>
+                                <label>Portrait</label>
+                                <md-file name="pictureFileName" id="pictureFileName" v-model="editForm.pictureFileName" accept="image/*"
+                                         @md-change="onSelectPicture"/>
+                            </md-field>
+                        </div>
                     </form>
                 </md-content>
                 <md-dialog-actions>
@@ -141,12 +153,16 @@
                     holidays: '',
                     creationDate: '',
                     marketId: '',
+                    pictureFileName: '',
                 },
                 message: '',
                 showMessage : false,
                 showDialog: false,
                 showDeleteConfirm:false,
                 toDelete: null,
+                editFormPortraitFile: null,
+                editFormSelectPicture : false,
+                fileToUpload : null,
             };
         },
         validations: {
@@ -166,7 +182,11 @@
                 this.editForm.lastName=null;
                 this.editForm.firstName=null;
                 this.editForm.marketId=null;
-                this.editForm.creationDate;
+                this.editForm.creationDate=null;
+                this.editForm.pictureFileName=null;
+                this.editFormPortraitFile = null;
+                this.editFormSelectPicture = false;
+
 
 
             },
@@ -175,7 +195,6 @@
                 axios.get(path)
                     .then((res) => {
                         this.markets = res.data;
-                        console.log(res.data);
                     })
                     .catch((error) => {
                         // eslint-disable-next-line
@@ -206,6 +225,7 @@
             onSelect(item) {
                 if (item && !this.showDeleteConfirm){
                     this.editForm = JSON.parse(JSON.stringify(item));
+                    this.editFormPortraitFile = this.getPortrait(item.pictureFileName);
                     this.showDialog = true;
                 }
             },
@@ -227,9 +247,13 @@
                     marketId: this.editForm.marketId,
                     deleted: false,
                 };
+                //Upload du fichier
+                if(this.editFormSelectPicture){
+                    let fileName = this.uploadFile(this.fileToUpload);
+                    payload.pictureFileName = this.editForm.pictureFileName;
+                }
                 //On est en mode edit
                 if (this.editForm.id!==null){
-                    payload.creationDate = this.editForm.creationDate;
                     this.updateMerchant(payload, this.editForm.id);
                 }
                 //On est en mode create
@@ -241,7 +265,7 @@
             },
             updateMerchant(payload, merchantID) {
                 const path = `http://localhost:3000/api/merchants/${merchantID}?access_token=TRRJgMx6Svy9AhYx5DcPJx0nvdKXr7DloSn53AEEGgMHlMYN7wH1JMIIKGfoKxqA`;
-                axios.put(path, payload)
+                axios.patch(path, payload)
                     .then(() => {
                         this.message = 'Fiche marchand mise à jour';
                         console.log(this.message);
@@ -275,9 +299,12 @@
 
             },
             onDeleteConfirm(){
-                let payload = this.toDelete;
-                payload.deleted = true;
-                this.updateMerchant(payload,payload.id);
+                //let payload = this.toDelete;
+                let payload = {
+                    deleted : true,
+                    "lastUpdated": Date.now()
+                };
+                this.updateMerchant(payload,this.toDelete.id);
                 this.toDelete= null;
             },
             getMarketbyId(marketId){
@@ -289,6 +316,39 @@
                 else{
                     return ""
                 }
+            },
+            getPortrait(pictureFileName){
+                if(pictureFileName!==null){
+                    return `http://localhost:3000/api/containers/photos/download/${pictureFileName}?access_token=QIORachmY5HE5gEes6S8x72CTDpZmu63deGCnWgALqnKPVf1s5LZtLiAMpz9hbBp`;
+                }
+            },
+            onSelectPicture(evt){
+                if (evt[0]){
+                    const reader = new FileReader;
+                    reader.onload = e => {
+                        this.editFormPortraitFile = e.target.result;
+                    };
+                    reader.readAsDataURL(evt[0]);
+                    this.editFormSelectPicture = true;
+                    this.fileToUpload = evt[0];
+                }
+            },
+            uploadFile(file){
+                const path = `http://localhost:3000/api/containers/photos/upload/?access_token=QIORachmY5HE5gEes6S8x72CTDpZmu63deGCnWgALqnKPVf1s5LZtLiAMpz9hbBp`;
+                let formData = new FormData();
+                formData.append('file', file);
+                axios.post(path, formData)
+                    .then((res) => {
+                        this.message = 'Fiche marchand mise à jour';
+                        return res.data.result.files.file[0].name
+                        //this.showMessage = true;
+                    })
+                    .catch((error) => {
+                        // eslint-disable-next-line
+                        console.error(error);
+                        return null;
+                    });
+
             },
             getValidationClass (fieldName) {
                 const field = this.$v.form[fieldName];
