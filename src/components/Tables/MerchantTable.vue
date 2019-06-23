@@ -9,7 +9,7 @@
                 <md-table-cell md-label="Marché" md-sort-by="market">{{ getMarketbyId(item.marketId) }}</md-table-cell>
                 <md-table-cell md-label="Revenus" md-sort-by="incoming" md-numeric>{{ item.incoming }}</md-table-cell>
                 <md-table-cell md-label="Congés" md-sort-by="holidays" md-numeric>{{ item.holidays }}</md-table-cell>
-                <md-table-cell md-label="Modification" md-sort-by="updated">{{ item.lastUpdated }}</md-table-cell>
+                <md-table-cell md-label="Modification" md-sort-by="updated">{{displayDate(item.lastUpdated) }}</md-table-cell>
                 <md-table-cell md-label="">
                     <md-button class="md-default md-sm md-simple" @click="onDelete(item)"><md-icon >delete</md-icon></md-button>
                 </md-table-cell>
@@ -113,6 +113,7 @@
 
 <script>
     import axios from 'axios';
+    let moment = require('moment');
     import {Modal} from '@/components';
     import { validationMixin } from 'vuelidate';
     import {
@@ -349,6 +350,9 @@
                         return null;
                     });
 
+            },
+            displayDate(date){
+                return moment(date).locale('fr').format('Do MMMM YYYY, hh:m');
             },
             getValidationClass (fieldName) {
                 const field = this.$v.form[fieldName];
