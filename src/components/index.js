@@ -9,6 +9,7 @@ import OrderedTable from "./Tables/OrderedTable.vue";
 import SimpleTable from "./Tables/SimpleTable.vue";
 import MerchantTable from "./Tables/MerchantTable.vue";
 import MarketTable from "./Tables/MarketTable.vue";
+import AgentTable from "./Tables/AgentTable.vue";
 
 
 export {
@@ -20,4 +21,5 @@ export {
   SimpleTable,
   MerchantTable,
     MarketTable,
+    AgentTable,
 };

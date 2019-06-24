@@ -3,9 +3,14 @@
         <md-table v-model="merchants" :table-header-color="tableHeaderColor"  md-sort="name" md-sort-order="asc"
                   md-fixed-header @md-selected="onSelect">
             <md-table-row slot="md-table-row" slot-scope="{ item }" md-selectable="single">
+                <md-table-cell>
+                    <md-avatar>
+                        <img v-bind:src="getPortrait(item.pictureFileName)" alt="Portrait">
+                    </md-avatar>
+                </md-table-cell>
                 <md-table-cell md-label="Nom" md-sort-by="name">{{ item.firstName }} {{ item.lastName }}</md-table-cell>
-                <md-table-cell md-label="Email" md-sort-by="email">{{ item.email }}</md-table-cell>
-                <md-table-cell md-label="Téléphone" md-sort-by="phone">{{ item.phone }}</md-table-cell>
+                <md-table-cell md-label="Email">{{ item.email }}</md-table-cell>
+                <md-table-cell md-label="Téléphone">{{ item.phone }}</md-table-cell>
                 <md-table-cell md-label="Marché" md-sort-by="market">{{ getMarketbyId(item.marketId) }}</md-table-cell>
                 <md-table-cell md-label="Revenus" md-sort-by="incoming" md-numeric>{{ item.incoming }}</md-table-cell>
                 <md-table-cell md-label="Congés" md-sort-by="holidays" md-numeric>{{ item.holidays }}</md-table-cell>
