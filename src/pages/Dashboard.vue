@@ -17,7 +17,7 @@
           <template slot="footer">
             <div class="stats">
               <md-icon>date_range</md-icon>
-              Last 24 Hours
+              sur {{merchantCount.markets}} marchés
             </div>
           </template>
         </stats-card>
@@ -33,14 +33,14 @@
           <template slot="content">
             <p class="category">Revenu minimum</p>
             <h3 class="title">
-              22€
+              {{merchantIncomingStats.min.incoming}}€
             </h3>
           </template>
 
           <template slot="footer">
             <div class="stats">
-              <md-icon class="text-danger">warning</md-icon>
-              <a href="#pablo">Get More Space...</a>
+              <md-icon>warning</md-icon>
+              {{merchantIncomingStats.min.firstName}} {{merchantIncomingStats.min.lastName}}
             </div>
           </template>
         </stats-card>
@@ -54,14 +54,15 @@
           </template>
 
           <template slot="content">
-            <p class="category">Revenu minimum</p>
-            <h3 class="title">999€</h3>
+            <p class="category">Revenu maximum</p>
+            <h3 class="title">{{merchantIncomingStats.max.incoming}}€</h3>
           </template>
 
           <template slot="footer">
             <div class="stats">
               <md-icon>local_offer</md-icon>
-              Tracked from Github
+              {{merchantIncomingStats.max.firstName}} {{merchantIncomingStats.max.lastName}}
+
             </div>
           </template>
         </stats-card>
@@ -76,7 +77,7 @@
 
           <template slot="content">
             <p class="category">Revenu moyen</p>
-            <h3 class="title">100€</h3>
+            <h3 class="title">{{merchantIncomingStats.avg}}€</h3>
           </template>
 
           <template slot="footer">
@@ -194,6 +195,8 @@ import {
   OrderedTable
 } from "@/components";
 import MerchantCard from "./DashBoard/MerchantCard";
+import axios from 'axios';
+
 
 export default {
   components: {
@@ -208,6 +211,7 @@ export default {
     return {
       merchantCount:{
         total : '',
+        markets: '',
       },
       merchantIncomingStats:{
         min : '',
@@ -302,14 +306,67 @@ export default {
   },
   methods: {
     getMerchantCount() {
-      this.merchantCount.total = 132;
-      //TODO Requête API GET http://localhost:3000/api/merchants/count?access_token=TRRJgMx6Svy9AhYx5DcPJx0nvdKXr7DloSn53AEEGgMHlMYN7wH1JMIIKGfoKxqA
-      //Penser à filtrer les deleted
-    }
-
+      const path = 'http://localhost:3000/api/merchants?filter=%7B%22where%22%3A%7B%22deleted%22%3A%22false%22%7D%7D&access_token=TRRJgMx6Svy9AhYx5DcPJx0nvdKXr7DloSn53AEEGgMHlMYN7wH1JMIIKGfoKxqA';
+      axios.get(path)
+              .then((res) => {
+                this.merchantCount.total = res.data.length;
+              })
+              .catch((error) => {
+                // eslint-disable-next-line
+                console.error(error);
+              });
+    },
+    getMarketCount() {
+      const path = 'http://localhost:3000/api/markets/count?access_token=TRRJgMx6Svy9AhYx5DcPJx0nvdKXr7DloSn53AEEGgMHlMYN7wH1JMIIKGfoKxqA';
+      axios.get(path)
+              .then((res) => {
+                this.merchantCount.markets = res.data.count;
+              })
+              .catch((error) => {
+                // eslint-disable-next-line
+                console.error(error);
+              });
+    },
+    getMaxIncoming() {
+        const path = 'http://localhost:3000/api/merchants?filter[where][and][0][deleted]=false&filter[order]=incoming DESC&filter[limit]=1&access_token=D7Oo0T0RK6wuKgtAN3tsXesvczyTbsubQvM9YA7T4YojdnlZUkJph8fooT7FB7EM&filter[where][and][1][incoming][gt]=0';
+        axios.get(path)
+                .then((res) => {
+                  this.merchantIncomingStats.max = res.data[0];
+                })
+                .catch((error) => {
+                  // eslint-disable-next-line
+                  console.error(error);
+                });
+    },
+    getMinIncoming() {
+      const path = 'http://localhost:3000/api/merchants?filter[where][and][0][deleted]=false&filter[order]=incoming ASC&filter[limit]=1&access_token=D7Oo0T0RK6wuKgtAN3tsXesvczyTbsubQvM9YA7T4YojdnlZUkJph8fooT7FB7EM&filter[where][and][1][incoming][gt]=0';
+      axios.get(path)
+              .then((res) => {
+                this.merchantIncomingStats.min = res.data[0];
+              })
+              .catch((error) => {
+                // eslint-disable-next-line
+                console.error(error);
+              });
+    },
+    getAvgIncoming() {
+      const path = 'http://localhost:3000/api/Merchants/avgincoming?access_token=D7Oo0T0RK6wuKgtAN3tsXesvczyTbsubQvM9YA7T4YojdnlZUkJph8fooT7FB7EM';
+      axios.get(path)
+              .then((res) => {
+                this.merchantIncomingStats.avg = res.data.averageIncoming;
+              })
+              .catch((error) => {
+                // eslint-disable-next-line
+                console.error(error);
+              });
+    },
   },
   created() {
     this.getMerchantCount();
+    this.getMarketCount();
+    this.getMaxIncoming();
+    this.getMinIncoming();
+    this.getAvgIncoming();
   },
 
 };
