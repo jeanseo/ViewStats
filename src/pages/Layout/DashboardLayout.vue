@@ -1,8 +1,8 @@
 <template>
-  <div class="wrapper" :class="{ 'nav-open': $sidebar.showSidebar }">
+  <div class="wrapper" v-bind:class="[!$route.meta.hideSideBar ?  'nav-open': $sidebar.showSidebar ]">
     <notifications></notifications>
 
-    <side-bar>
+    <side-bar v-if="!$route.meta.hideSideBar" >
       <mobile-menu slot="content"></mobile-menu>
       <sidebar-link to="/dashboard">
         <md-icon>dashboard</md-icon>
@@ -38,8 +38,8 @@
       </sidebar-link>
     </side-bar>
 
-    <div class="main-panel">
-      <top-navbar></top-navbar>
+    <div v-bind:class="{'main-panel' : !$route.meta.hideTopNavBar}">
+      <top-navbar v-if="!$route.meta.hideTopNavBar"></top-navbar>
 
       <dashboard-content> </dashboard-content>
 

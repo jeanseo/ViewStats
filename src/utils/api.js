@@ -16,7 +16,7 @@ const apiCall = ({url, method, data, ...args}) => new Promise((resolve, reject) 
                         })
                         .catch((error) => {
                             // eslint-disable-next-line
-                            console.error(error);
+                            reject(error);
                         });
                     break;
                 case "GET" :

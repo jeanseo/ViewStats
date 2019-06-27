@@ -45,23 +45,43 @@
                 login: {
                     email: "",
                     password: ""
-                }
+                },
+                type: ["", "info", "success", "warning", "danger"],
+                notifications: {
+                    message: null,
+                    topCenter: false
+                },
             };
         },
         methods: {
             auth() {
                 // your code to login user
                 // this is only for example of loading
-                //this.loading = true;
+                this.loading = true;
                 const { username, password } = this;
                 console.log(username);
-                this.$store.dispatch(AUTH_REQUEST, { username, password }).then(() => {
-                    this.$router.push({ name: 'DashboardLayout'});
-                    //this.loading = false;
-
+                this.$store.dispatch(AUTH_REQUEST, { username, password })
+                    .then(() => {
+                    this.$router.push({ name: 'Dashboard'})
+                })
+                .catch((error)=>{
+                    console.error(error);
+                    this.loading = false;
+                    this.notifications.message = error.toString();
+                    this.notifyVue('bottom','center',4);
                 });
 
-            }
+            },
+            notifyVue(verticalAlign, horizontalAlign,color) {
+                this.$notify({
+                    message:
+                        this.notifications.message,
+                    icon: "add_alert",
+                    horizontalAlign: horizontalAlign,
+                    verticalAlign: verticalAlign,
+                    type: this.type[4]
+                });
+            },
         }
     };
 </script>

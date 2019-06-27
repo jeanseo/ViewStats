@@ -8,41 +8,56 @@ import Icons from "@/pages/Icons.vue";
 import Maps from "@/pages/Maps.vue";
 import Notifications from "@/pages/Notifications.vue";
 import UpgradeToPRO from "@/pages/UpgradeToPRO.vue";
+import Login from "@/pages/Login.vue";
+
+
+
 
 const routes = [
+
   {
     path: "/",
     component: DashboardLayout,
     name:"Layout",
-    redirect: "/dashboard",
+    redirect: "/login",
     children: [
       {
-        path: "dashboard",
+        path:"login",
+        component: Login,
+        name:"Login",
+        meta: {
+          hideFooter: true,
+          hideTopNavBar:true,
+          hideSideBar:true,
+        },
+      },
+      {
+        path: "/dashboard",
         name: "Dashboard",
         component: Dashboard
       },
       {
-        path: "user",
+        path: "/user",
         name: "User Profile",
         component: UserProfile
       },
       {
-        path: "table",
+        path: "/table",
         name: "Table List",
         component: TableList
       },
       {
-        path: "typography",
+        path: "/typography",
         name: "Typography",
         component: Typography
       },
       {
-        path: "icons",
+        path: "/icons",
         name: "Icons",
         component: Icons
       },
       {
-        path: "maps",
+        path: "/maps",
         name: "Maps",
         meta: {
           hideFooter: true
@@ -50,12 +65,12 @@ const routes = [
         component: Maps
       },
       {
-        path: "notifications",
+        path: "/notifications",
         name: "Notifications",
         component: Notifications
       },
       {
-        path: "upgrade",
+        path: "/upgrade",
         name: "Upgrade to PRO",
         component: UpgradeToPRO
       }
