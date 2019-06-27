@@ -10,7 +10,23 @@ import Notifications from "@/pages/Notifications.vue";
 import UpgradeToPRO from "@/pages/UpgradeToPRO.vue";
 import Login from "@/pages/Login.vue";
 
+import store from '../store'; // your vuex store
 
+const ifNotAuthenticated = (to, from, next) => {
+  if (!store.getters.isAuthenticated) {
+    next();
+    return;
+  }
+  next('/dashboard');
+};
+
+const ifAuthenticated = (to, from, next) => {
+  if (store.getters.isAuthenticated) {
+    next();
+    return;
+  }
+  next('/login');
+};
 
 
 const routes = [
@@ -30,31 +46,37 @@ const routes = [
           hideTopNavBar:true,
           hideSideBar:true,
         },
+        beforeEnter: ifNotAuthenticated,
       },
       {
         path: "/dashboard",
         name: "Dashboard",
-        component: Dashboard
+        component: Dashboard,
+        beforeEnter: ifAuthenticated,
       },
       {
         path: "/user",
         name: "User Profile",
-        component: UserProfile
+        component: UserProfile,
+        beforeEnter: ifAuthenticated,
       },
       {
         path: "/table",
         name: "Table List",
-        component: TableList
+        component: TableList,
+        beforeEnter: ifAuthenticated,
       },
       {
         path: "/typography",
         name: "Typography",
-        component: Typography
+        component: Typography,
+        beforeEnter: ifAuthenticated,
       },
       {
         path: "/icons",
         name: "Icons",
-        component: Icons
+        component: Icons,
+        beforeEnter: ifAuthenticated,
       },
       {
         path: "/maps",
@@ -62,17 +84,20 @@ const routes = [
         meta: {
           hideFooter: true
         },
-        component: Maps
+        component: Maps,
+        beforeEnter: ifAuthenticated,
       },
       {
         path: "/notifications",
         name: "Notifications",
-        component: Notifications
+        component: Notifications,
+        beforeEnter: ifAuthenticated,
       },
       {
         path: "/upgrade",
         name: "Upgrade to PRO",
-        component: UpgradeToPRO
+        component: UpgradeToPRO,
+        beforeEnter: ifAuthenticated,
       }
     ]
   }

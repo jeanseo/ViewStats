@@ -59,7 +59,6 @@
                 // this is only for example of loading
                 this.loading = true;
                 const { username, password } = this;
-                console.log(username);
                 this.$store.dispatch(AUTH_REQUEST, { username, password })
                     .then(() => {
                     this.$router.push({ name: 'Dashboard'})
@@ -68,7 +67,7 @@
                     console.error(error);
                     this.loading = false;
                     this.notifications.message = error.toString();
-                    this.notifyVue('bottom','center',4);
+                    this.notifyVue('bottom','center',this.type[4]);
                 });
 
             },
@@ -79,7 +78,7 @@
                     icon: "add_alert",
                     horizontalAlign: horizontalAlign,
                     verticalAlign: verticalAlign,
-                    type: this.type[4]
+                    type: color
                 });
             },
         }
