@@ -202,7 +202,7 @@
 
             },
             getAgents() {
-                const path = 'http://localhost:3000/api/agents?filter={%22where%22%3A{%22username%22%3A{%22neq%22%3A%22admin%22}}}&access_token=D7Oo0T0RK6wuKgtAN3tsXesvczyTbsubQvM9YA7T4YojdnlZUkJph8fooT7FB7EM';
+                const path = 'http://localhost:3000/api/agents?filter={%22where%22%3A{%22username%22%3A{%22neq%22%3A%22admin%22}}}&access_token=4TBhcD2VGxjzTBE07fG5HGeEU1vNpNmMydBcyNiVa8c2NZcpl78jqWN82CFfNDiw';
                 axios.get(path)
                     .then((res) => {
                         this.agents = res.data;
@@ -264,7 +264,7 @@
                 this.initForm();
             },
             updateAgent(payload, agentID) {
-                const path = `http://localhost:3000/api/agents/${agentID}?access_token=D7Oo0T0RK6wuKgtAN3tsXesvczyTbsubQvM9YA7T4YojdnlZUkJph8fooT7FB7EM`;
+                const path = `http://localhost:3000/api/agents/${agentID}?access_token=4TBhcD2VGxjzTBE07fG5HGeEU1vNpNmMydBcyNiVa8c2NZcpl78jqWN82CFfNDiw`;
                 axios.patch(path, payload)
                     .then(() => {
                         this.message = 'Fiche agent mise à jour';
@@ -280,7 +280,7 @@
             },
             createAgent(payload) {
                 console.log(payload);
-                const path = `http://localhost:3000/api/agents?access_token=D7Oo0T0RK6wuKgtAN3tsXesvczyTbsubQvM9YA7T4YojdnlZUkJph8fooT7FB7EM`;
+                const path = `http://localhost:3000/api/agents?access_token=4TBhcD2VGxjzTBE07fG5HGeEU1vNpNmMydBcyNiVa8c2NZcpl78jqWN82CFfNDiw`;
                 axios.post(path, payload)
                     .then(() => {
                         this.message = 'Fiche agent créée';
@@ -295,7 +295,7 @@
                     });
             },
             deleteAgent(agentID){
-                const path = `http://localhost:3000/api/agents/${agentID}?access_token=D7Oo0T0RK6wuKgtAN3tsXesvczyTbsubQvM9YA7T4YojdnlZUkJph8fooT7FB7EM`;
+                const path = `http://localhost:3000/api/agents/${agentID}?access_token=4TBhcD2VGxjzTBE07fG5HGeEU1vNpNmMydBcyNiVa8c2NZcpl78jqWN82CFfNDiw`;
                 console.log(path);
                 axios.delete(path)
                     .then(() => {
@@ -322,7 +322,7 @@
             },
             getPortrait(pictureFileName){
                 if(pictureFileName!==null){
-                    return `http://localhost:3000/api/containers/photos/download/${pictureFileName}?access_token=QIORachmY5HE5gEes6S8x72CTDpZmu63deGCnWgALqnKPVf1s5LZtLiAMpz9hbBp`;
+                    return `http://localhost:3000/api/containers/photos/download/${pictureFileName}?access_token=iBpEKzCzLOW4WgjXhxuWDVeBI27JX0GJ3kCg5ElItCnQAVveqeDcTVoZxqBln4vC`;
                 }
             },
             onSelectPicture(evt){
@@ -337,7 +337,7 @@
                 }
             },
             uploadFile(file){
-                const path = `http://localhost:3000/api/containers/photos/upload/?access_token=QIORachmY5HE5gEes6S8x72CTDpZmu63deGCnWgALqnKPVf1s5LZtLiAMpz9hbBp`;
+                const path = `http://localhost:3000/api/containers/photos/upload/?access_token=iBpEKzCzLOW4WgjXhxuWDVeBI27JX0GJ3kCg5ElItCnQAVveqeDcTVoZxqBln4vC`;
                 let formData = new FormData();
                 formData.append('file', file);
                 axios.post(path, formData)
