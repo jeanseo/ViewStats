@@ -3,7 +3,9 @@ import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
 import Dashboard from "@/pages/Dashboard.vue";
 import UserProfile from "@/pages/UserProfile.vue";
 import TableList from "@/pages/TableList.vue";
-import Typography from "@/pages/Typography.vue";
+import MerchantTable from "@/pages/MerchantTable.vue";
+import MarketTable from "@/pages/MarketTable.vue";
+import AgentTable from "@/pages/AgentTable.vue";
 import Icons from "@/pages/Icons.vue";
 import Maps from "@/pages/Maps.vue";
 import Notifications from "@/pages/Notifications.vue";
@@ -79,9 +81,21 @@ const routes = [
         beforeEnter: ifAuthenticated,
       },
       {
-        path: "/typography",
-        name: "Typography",
-        component: Typography,
+        path: "/merchants",
+        name: "Commerçants",
+        component: MerchantTable,
+        beforeEnter: ifAuthenticated,
+      },
+      {
+        path: "/markets",
+        name: "Marché",
+        component: MarketTable,
+        beforeEnter: ifAuthenticated,
+      },
+      {
+        path: "/agents",
+        name: "Agents de collecte",
+        component: AgentTable,
         beforeEnter: ifAuthenticated,
       },
       {

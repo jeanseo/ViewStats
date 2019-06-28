@@ -8,21 +8,17 @@
         <md-icon>dashboard</md-icon>
         <p>Dashboard</p>
       </sidebar-link>
-      <sidebar-link to="/user">
+      <sidebar-link to="/merchants">
         <md-icon>person</md-icon>
-        <p>User Profile</p>
+        <p>Commerçants</p>
       </sidebar-link>
-      <sidebar-link to="/table">
+      <sidebar-link to="/markets">
+        <md-icon>store</md-icon>
+        <p>Marchés</p>
+      </sidebar-link>
+      <sidebar-link to="/agents">
         <md-icon>content_paste</md-icon>
-        <p>Table list</p>
-      </sidebar-link>
-      <sidebar-link to="/typography">
-        <md-icon>library_books</md-icon>
-        <p>Typography</p>
-      </sidebar-link>
-      <sidebar-link to="/icons">
-        <md-icon>bubble_chart</md-icon>
-        <p>Icons</p>
+        <p>Agents de collecte</p>
       </sidebar-link>
       <sidebar-link to="/logout" class="active-pro">
         <md-icon>logout</md-icon>
