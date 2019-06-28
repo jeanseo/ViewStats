@@ -9,6 +9,7 @@ import Maps from "@/pages/Maps.vue";
 import Notifications from "@/pages/Notifications.vue";
 import UpgradeToPRO from "@/pages/UpgradeToPRO.vue";
 import Login from "@/pages/Login.vue";
+import Logout from "@/pages/Logout.vue";
 
 import store from '../store'; // your vuex store
 
@@ -47,6 +48,17 @@ const routes = [
           hideSideBar:true,
         },
         beforeEnter: ifNotAuthenticated,
+      },
+      {
+        path:"logout",
+        component: Logout,
+        name:"Logout",
+        meta: {
+          hideFooter: true,
+          hideTopNavBar:true,
+          hideSideBar:true,
+        },
+        beforeEnter: ifAuthenticated,
       },
       {
         path: "/dashboard",

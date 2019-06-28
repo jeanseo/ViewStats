@@ -208,7 +208,7 @@
                     });
             },
             getMerchants() {
-                const path = 'http://localhost:3000/api/merchants?filter=%7B%22where%22%3A%7B%22deleted%22%3A%22false%22%7D%7D&access_token=TRRJgMx6Svy9AhYx5DcPJx0nvdKXr7DloSn53AEEGgMHlMYN7wH1JMIIKGfoKxqA';
+                const path = 'http://localhost:3000/api/merchants?filter=%7B%22where%22%3A%7B%22deleted%22%3A%22false%22%7D%7D';
                 axios.get(path)
                     .then((res) => {
                         this.merchants = res.data;
@@ -270,7 +270,7 @@
                 this.initForm();
             },
             updateMerchant(payload, merchantID) {
-                const path = `http://localhost:3000/api/merchants/${merchantID}?access_token=TRRJgMx6Svy9AhYx5DcPJx0nvdKXr7DloSn53AEEGgMHlMYN7wH1JMIIKGfoKxqA`;
+                const path = `http://localhost:3000/api/merchants/${merchantID}`;
                 axios.patch(path, payload)
                     .then(() => {
                         this.message = 'Fiche marchand mise à jour';
@@ -285,7 +285,7 @@
                     });
             },
             createMerchant(payload) {
-                const path = `http://localhost:3000/api/merchants?access_token=TRRJgMx6Svy9AhYx5DcPJx0nvdKXr7DloSn53AEEGgMHlMYN7wH1JMIIKGfoKxqA`;
+                const path = `http://localhost:3000/api/merchants`;
                 axios.post(path, payload)
                     .then(() => {
                         this.message = 'Fiche marchand créée';
@@ -325,7 +325,7 @@
             },
             getPortrait(pictureFileName){
                 if(pictureFileName!==null){
-                    return `http://localhost:3000/api/containers/photos/download/${pictureFileName}?access_token=QIORachmY5HE5gEes6S8x72CTDpZmu63deGCnWgALqnKPVf1s5LZtLiAMpz9hbBp`;
+                    return `http://localhost:3000/api/containers/photos/download/${pictureFileName}`;
                 }
             },
             onSelectPicture(evt){
@@ -340,7 +340,7 @@
                 }
             },
             uploadFile(file){
-                const path = `http://localhost:3000/api/containers/photos/upload/?access_token=QIORachmY5HE5gEes6S8x72CTDpZmu63deGCnWgALqnKPVf1s5LZtLiAMpz9hbBp`;
+                const path = `http://localhost:3000/api/containers/photos/upload/`;
                 let formData = new FormData();
                 formData.append('file', file);
                 axios.post(path, formData)

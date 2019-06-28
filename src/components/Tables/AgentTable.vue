@@ -202,7 +202,7 @@
 
             },
             getAgents() {
-                const path = 'http://localhost:3000/api/agents?filter={%22where%22%3A{%22username%22%3A{%22neq%22%3A%22admin%22}}}&access_token=4TBhcD2VGxjzTBE07fG5HGeEU1vNpNmMydBcyNiVa8c2NZcpl78jqWN82CFfNDiw';
+                const path = 'http://localhost:3000/api/agents?filter={%22where%22%3A{%22username%22%3A{%22neq%22%3A%22admin%22}}}';
                 axios.get(path)
                     .then((res) => {
                         this.agents = res.data;
@@ -264,7 +264,7 @@
                 this.initForm();
             },
             updateAgent(payload, agentID) {
-                const path = `http://localhost:3000/api/agents/${agentID}?access_token=4TBhcD2VGxjzTBE07fG5HGeEU1vNpNmMydBcyNiVa8c2NZcpl78jqWN82CFfNDiw`;
+                const path = `http://localhost:3000/api/agents/${agentID}`;
                 axios.patch(path, payload)
                     .then(() => {
                         this.message = 'Fiche agent mise à jour';
@@ -280,7 +280,7 @@
             },
             createAgent(payload) {
                 console.log(payload);
-                const path = `http://localhost:3000/api/agents?access_token=4TBhcD2VGxjzTBE07fG5HGeEU1vNpNmMydBcyNiVa8c2NZcpl78jqWN82CFfNDiw`;
+                const path = `http://localhost:3000/api/agents`;
                 axios.post(path, payload)
                     .then(() => {
                         this.message = 'Fiche agent créée';

@@ -10,12 +10,12 @@
 
             <div class="form">
                 <md-field>
-                    <label>E-mail</label>
+                    <label>Nom d'utilisateur</label>
                     <md-input v-model="username" autofocus></md-input>
                 </md-field>
 
                 <md-field md-has-password>
-                    <label>Password</label>
+                    <label>Mot de passe</label>
                     <md-input v-model="password" type="password"></md-input>
                 </md-field>
             </div>

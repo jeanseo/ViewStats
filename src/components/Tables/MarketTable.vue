@@ -99,7 +99,7 @@
                 this.editForm.city=null;
             },
             getMarkets(){
-                const path = 'http://localhost:3000/api/markets?access_token=TRRJgMx6Svy9AhYx5DcPJx0nvdKXr7DloSn53AEEGgMHlMYN7wH1JMIIKGfoKxqA';
+                const path = 'http://localhost:3000/api/markets';
                 axios.get(path)
                     .then((res) => {
                         this.markets = res.data;
@@ -147,7 +147,7 @@
                 this.initForm();
             },
             updateMarket(payload, marketID) {
-                const path = `http://localhost:3000/api/markets/${marketID}?access_token=TRRJgMx6Svy9AhYx5DcPJx0nvdKXr7DloSn53AEEGgMHlMYN7wH1JMIIKGfoKxqA`;
+                const path = `http://localhost:3000/api/markets/${marketID}`;
                 axios.patch(path, payload)
                     .then(() => {
                         this.message = 'Fiche marché mise à jour';
@@ -162,7 +162,7 @@
                     });
             },
             createMarket(payload) {
-                const path = `http://localhost:3000/api/markets?access_token=TRRJgMx6Svy9AhYx5DcPJx0nvdKXr7DloSn53AEEGgMHlMYN7wH1JMIIKGfoKxqA`;
+                const path = `http://localhost:3000/api/markets`;
                 axios.post(path, payload)
                     .then(() => {
                         this.message = 'Fiche marché créée';
@@ -177,7 +177,7 @@
                     });
             },
             deleteMarket(marketID){
-                const path = `http://localhost:3000/api/markets/${marketID}?access_token=TRRJgMx6Svy9AhYx5DcPJx0nvdKXr7DloSn53AEEGgMHlMYN7wH1JMIIKGfoKxqA`;
+                const path = `http://localhost:3000/api/markets/${marketID}`;
                 console.log(path);
                 axios.delete(path)
                     .then(() => {

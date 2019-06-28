@@ -306,7 +306,7 @@ export default {
   },
   methods: {
     getMerchantCount() {
-      const path = 'http://localhost:3000/api/merchants?filter=%7B%22where%22%3A%7B%22deleted%22%3A%22false%22%7D%7D&access_token=TRRJgMx6Svy9AhYx5DcPJx0nvdKXr7DloSn53AEEGgMHlMYN7wH1JMIIKGfoKxqA';
+      const path = 'http://localhost:3000/api/merchants?filter=%7B%22where%22%3A%7B%22deleted%22%3A%22false%22%7D%7D';
       axios.get(path)
               .then((res) => {
                 this.merchantCount.total = res.data.length;
@@ -317,7 +317,7 @@ export default {
               });
     },
     getMarketCount() {
-      const path = 'http://localhost:3000/api/markets/count?access_token=TRRJgMx6Svy9AhYx5DcPJx0nvdKXr7DloSn53AEEGgMHlMYN7wH1JMIIKGfoKxqA';
+      const path = 'http://localhost:3000/api/markets/count';
       axios.get(path)
               .then((res) => {
                 this.merchantCount.markets = res.data.count;
@@ -328,7 +328,7 @@ export default {
               });
     },
     getMaxIncoming() {
-        const path = 'http://localhost:3000/api/merchants?filter[where][and][0][deleted]=false&filter[order]=incoming DESC&filter[limit]=1&access_token=D7Oo0T0RK6wuKgtAN3tsXesvczyTbsubQvM9YA7T4YojdnlZUkJph8fooT7FB7EM&filter[where][and][1][incoming][gt]=0';
+        const path = 'http://localhost:3000/api/merchants?filter[where][and][0][deleted]=false&filter[order]=incoming DESC&filter[limit]=1&filter[where][and][1][incoming][gt]=0';
         axios.get(path)
                 .then((res) => {
                   this.merchantIncomingStats.max = res.data[0];
@@ -339,7 +339,7 @@ export default {
                 });
     },
     getMinIncoming() {
-      const path = 'http://localhost:3000/api/merchants?filter[where][and][0][deleted]=false&filter[order]=incoming ASC&filter[limit]=1&access_token=D7Oo0T0RK6wuKgtAN3tsXesvczyTbsubQvM9YA7T4YojdnlZUkJph8fooT7FB7EM&filter[where][and][1][incoming][gt]=0';
+      const path = 'http://localhost:3000/api/merchants?filter[where][and][0][deleted]=false&filter[order]=incoming ASC&filter[limit]=1&filter[where][and][1][incoming][gt]=0';
       axios.get(path)
               .then((res) => {
                 this.merchantIncomingStats.min = res.data[0];
@@ -350,7 +350,7 @@ export default {
               });
     },
     getAvgIncoming() {
-      const path = 'http://localhost:3000/api/Merchants/avgincoming?access_token=D7Oo0T0RK6wuKgtAN3tsXesvczyTbsubQvM9YA7T4YojdnlZUkJph8fooT7FB7EM';
+      const path = 'http://localhost:3000/api/Merchants/avgincoming';
       axios.get(path)
               .then((res) => {
                 this.merchantIncomingStats.avg = res.data.averageIncoming;

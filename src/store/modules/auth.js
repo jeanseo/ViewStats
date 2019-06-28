@@ -35,10 +35,15 @@ const actions = {
     [AUTH_LOGOUT]: ({commit, dispatch}) => {
         return new Promise((resolve, reject) => {
             commit(AUTH_LOGOUT);
-            localStorage.removeItem('user-token');
-            resolve();
+            apiCall({url: 'http://localhost:3000/api/users/logout', data: null, method: 'POST'})
+                .then(()=>{
+                })
+                .finally(()=>{
+                    localStorage.removeItem('user-token');
+                    resolve();
+                });
         });
-    }
+    },
 };
 
 const mutations = {
