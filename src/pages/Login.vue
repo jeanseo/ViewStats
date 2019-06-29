@@ -3,7 +3,7 @@
         <md-content class="md-elevation-3">
 
             <div class="title">
-                <img src="https://vuematerial.io/assets/logo-color.png">
+                <md-icon class="md-size-4x">bar_chart</md-icon>
                 <div class="md-title">ViewStats</div>
                 <div class="md-body-1">Outil de gestion statistiques</div>
             </div>
