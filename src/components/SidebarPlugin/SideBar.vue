@@ -1,17 +1,14 @@
 <template>
   <div
     class="sidebar"
+    style="background-color: red"
     :data-color="activeColor"
-    :data-image="backgroundImage"
-    :style="sidebarStyle"
   >
+
     <div class="logo">
       <a href="/dashboard" class="simple-text logo-mini">
-        <div class="logo-img">
-          <img :src="imgLogo" alt="" />
-        </div>
+          <md-icon style="color:red">bar_chart</md-icon>
       </a>
-
       <a
         href="/dashboard"
         class="simple-text logo-normal"

@@ -16,7 +16,7 @@
 
           <template slot="footer">
             <div class="stats">
-              <md-icon>date_range</md-icon>
+              <md-icon>location_on</md-icon>
               sur {{merchantCount.markets}} marchés
             </div>
           </template>
@@ -27,7 +27,7 @@
       >
         <stats-card data-background-color="orange">
           <template slot="header">
-            <md-icon>content_copy</md-icon>
+            <md-icon>trending_down</md-icon>
           </template>
 
           <template slot="content">
@@ -39,7 +39,7 @@
 
           <template slot="footer">
             <div class="stats">
-              <md-icon>warning</md-icon>
+              <md-icon>face</md-icon>
               {{merchantIncomingStats.min.firstName}} {{merchantIncomingStats.min.lastName}}
             </div>
           </template>
@@ -50,7 +50,7 @@
       >
         <stats-card data-background-color="red">
           <template slot="header">
-            <md-icon>info_outline</md-icon>
+            <md-icon>trending_up</md-icon>
           </template>
 
           <template slot="content">
@@ -60,7 +60,7 @@
 
           <template slot="footer">
             <div class="stats">
-              <md-icon>local_offer</md-icon>
+              <md-icon>face</md-icon>
               {{merchantIncomingStats.max.firstName}} {{merchantIncomingStats.max.lastName}}
 
             </div>
@@ -72,12 +72,12 @@
       >
         <stats-card data-background-color="blue">
           <template slot="header">
-            <i class="fab fa-twitter"></i>
+            <md-icon>trending_flat</md-icon>
           </template>
 
           <template slot="content">
             <p class="category">Revenu moyen</p>
-            <h3 class="title">{{merchantIncomingStats.avg}}€</h3>
+            <h3 class="title">{{ Math.round(merchantIncomingStats.avg * 1) / 1}}€</h3>
           </template>
 
           <template slot="footer">

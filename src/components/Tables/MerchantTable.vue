@@ -197,7 +197,7 @@
 
             },
             getMarkets(){
-                const path = 'http://localhost:3000/api/markets?access_token=TRRJgMx6Svy9AhYx5DcPJx0nvdKXr7DloSn53AEEGgMHlMYN7wH1JMIIKGfoKxqA';
+                const path = 'http://localhost:3000/api/markets';
                 axios.get(path)
                     .then((res) => {
                         this.markets = res.data;

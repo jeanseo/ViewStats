@@ -190,7 +190,6 @@
         z-index: 1032;
         visibility: visible;
         background-color: #870000;
-        overflow-y: visible;
         border-top: none;
         text-align: left;
         padding-right: 0px;
@@ -231,7 +230,7 @@
         .table-responsive {
             width: 100%;
             margin-bottom: 15px;
-            overflow-x: scroll;
+            overflow-x: hidden;
             overflow-y: hidden;
             -ms-overflow-style: -ms-autohiding-scrollbar;
             -webkit-overflow-scrolling: touch;
