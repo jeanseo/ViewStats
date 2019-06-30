@@ -1,9 +1,7 @@
 <template>
   <div class="content">
     <div class="md-layout">
-      <div
-        class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-25"
-      >
+      <div class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-25">
         <stats-card data-background-color="green">
           <template slot="header">
             <md-icon>store</md-icon>
@@ -74,7 +72,6 @@
           <template slot="header">
             <md-icon>trending_flat</md-icon>
           </template>
-
           <template slot="content">
             <p class="category">Revenu moyen</p>
             <h3 class="title">{{ Math.round(merchantIncomingStats.avg * 1) / 1}}€</h3>
@@ -92,80 +89,29 @@
               class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
       >
         <chart-card
-                :chart-data="dailySalesChart.data"
-                :chart-options="dailySalesChart.options"
-                :chart-type="'Line'"
-                data-background-color="blue"
-        >
-          <template slot="content">
-            <h4 class="title">Daily Sales</h4>
-            <p class="category">
-              <span class="text-success"
-              ><i class="fas fa-long-arrow-alt-up"></i> 55%
-              </span>
-              increase in today sales.
-            </p>
-          </template>
-
-          <template slot="footer">
-            <div class="stats">
-              <md-icon>access_time</md-icon>
-              updated 4 minutes ago
-            </div>
-          </template>
-        </chart-card>
-      </div>
-      <div
-              class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
-      >
-        <chart-card
-                :chart-data="emailsSubscriptionChart.data"
-                :chart-options="emailsSubscriptionChart.options"
-                :chart-responsive-options="emailsSubscriptionChart.responsiveOptions"
+                :chart-data="incomingStatsChart.data"
+                :chart-options="incomingStatsChart.options"
+                :chart-responsive-options="incomingStatsChart.responsiveOptions"
                 :chart-type="'Bar'"
                 data-background-color="red"
         >
           <template slot="content">
-            <h4 class="title">Email Subscription</h4>
+            <h4 class="title">Répartition du chiffre d'affaire</h4>
             <p class="category">
-              Last Campaign Performance
+              Nombre de commerçants par tranche de revenus
             </p>
           </template>
 
           <template slot="footer">
             <div class="stats">
               <md-icon>access_time</md-icon>
-              updated 10 days ago
+              Just updated
             </div>
           </template>
         </chart-card>
       </div>
       <div
-              class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
-      >
-        <chart-card
-                :chart-data="dataCompletedTasksChart.data"
-                :chart-options="dataCompletedTasksChart.options"
-                :chart-type="'Line'"
-                data-background-color="green"
-        >
-          <template slot="content">
-            <h4 class="title">Completed Tasks</h4>
-            <p class="category">
-              Last Campaign Performance
-            </p>
-          </template>
-
-          <template slot="footer">
-            <div class="stats">
-              <md-icon>access_time</md-icon>
-              campaign sent 26 minutes ago
-            </div>
-          </template>
-        </chart-card>
-      </div>
-      <div
-        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-50"
+        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
       >
         <md-card>
           <md-card-header data-background-color="orange">
@@ -178,7 +124,7 @@
         </md-card>
       </div>
       <div
-              class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-50"
+              class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
       >
         <merchant-card> </merchant-card>
       </div>
@@ -218,69 +164,19 @@ export default {
         max : '',
         avg : ''
       },
-      dailySalesChart: {
-        data: {
-          labels: ["M", "T", "W", "T", "F", "S", "S"],
-          series: [[12, 17, 7, 17, 23, 18, 38]]
-        },
-        options: {
-          lineSmooth: this.$Chartist.Interpolation.cardinal({
-            tension: 0
-          }),
-          low: 0,
-          high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-          chartPadding: {
-            top: 0,
-            right: 0,
-            bottom: 0,
-            left: 0
-          }
-        }
-      },
-      dataCompletedTasksChart: {
-        data: {
-          labels: ["12am", "3pm", "6pm", "9pm", "12pm", "3am", "6am", "9am"],
-          series: [[230, 750, 450, 300, 280, 240, 200, 190]]
-        },
-
-        options: {
-          lineSmooth: this.$Chartist.Interpolation.cardinal({
-            tension: 0
-          }),
-          low: 0,
-          high: 1000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-          chartPadding: {
-            top: 0,
-            right: 0,
-            bottom: 0,
-            left: 0
-          }
-        }
-      },
-      emailsSubscriptionChart: {
+      incomingStatsChart: {
         data: {
           labels: [
-            "Ja",
-            "Fe",
-            "Ma",
-            "Ap",
-            "Mai",
-            "Ju",
-            "Jul",
-            "Au",
-            "Se",
-            "Oc",
-            "No",
-            "De"
+
           ],
-          series: [[542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]]
+          series: [[]]
         },
         options: {
           axisX: {
             showGrid: false
           },
           low: 0,
-          high: 1000,
+          high: 8,
           chartPadding: {
             top: 0,
             right: 5,
@@ -360,6 +256,28 @@ export default {
                 console.error(error);
               });
     },
+    getIncomingChart(){
+      const path = 'http://localhost:3000/api/Merchants/incomingcharts';
+      axios.get(path)
+              .then((res)=>{
+                console.log(res.data.result);
+                const resultArray = res.data.result;
+                resultArray.forEach((result)=>{
+                  this.incomingStatsChart.data.labels.push(result.range.toString());
+                  this.incomingStatsChart.data.series[0].push(result.value);
+                });
+                let max = Math.max(...this.incomingStatsChart.data.series[0]);
+                //this.incomingStatsChart.options.high = max;
+                console.log("valeur max:"+max);
+                console.log(JSON.stringify(this.incomingStatsChart));
+
+
+
+              })
+              .catch((error)=>{
+                console.error(error);
+              });
+    },
   },
   created() {
     this.getMerchantCount();
@@ -367,6 +285,7 @@ export default {
     this.getMaxIncoming();
     this.getMinIncoming();
     this.getAvgIncoming();
+    this.getIncomingChart();
   },
 
 };

@@ -141,22 +141,14 @@
                 selected: {},
                 merchants: [],
                 markets: [],
-                addMerchantForm: {
-                    firstName: '',
-                    lastName: '',
-                    email: '',
-                    phone: '',
-                    incoming: '',
-                    holidays: '',
-                },
                 editForm: {
                     id:'',
                     firstName: '',
                     lastName: '',
                     email: '',
                     phone: '',
-                    incoming: '',
-                    holidays: '',
+                    incoming: 0,
+                    holidays: 0,
                     creationDate: '',
                     marketId: '',
                     pictureFileName: '',
@@ -183,8 +175,8 @@
                 this.editForm.id=null;
                 this.editForm.email=null;
                 this.editForm.phone=null;
-                this.editForm.incoming=null;
-                this.editForm.holidays=null;
+                this.editForm.incoming=0;
+                this.editForm.holidays=0;
                 this.editForm.lastName=null;
                 this.editForm.firstName=null;
                 this.editForm.marketId=null;

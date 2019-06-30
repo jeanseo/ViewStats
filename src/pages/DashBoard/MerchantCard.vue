@@ -1,7 +1,7 @@
 <template>
   <md-card class="md-card-profile">
     <div class="md-card-avatar">
-      <img class="img" :src="cardUserImage" />
+      <img class="img" v-bind:src="merchant.portrait" alt="Portrait">
     </div>
 
     <md-card-content>
@@ -31,6 +31,8 @@
         marketId : null,
         incoming : null,
         marketName : null,
+        pictureFileName : null,
+        portrait : null,
       },
       markets:[],
     };
@@ -42,6 +44,7 @@
                 .then((res) => {
                   this.merchant = res.data[0];
                   console.log(this.merchant);
+                  this.merchant.portrait = this.getPortrait(this.merchant.pictureFileName)
                 })
                 .catch((error) => {
                   // eslint-disable-next-line
@@ -70,6 +73,11 @@
       }
       else{
         return ""
+      }
+    },
+    getPortrait(pictureFileName){
+      if(pictureFileName!==null){
+        return `http://localhost:3000/api/containers/photos/download/${pictureFileName}`;
       }
     },
   },
